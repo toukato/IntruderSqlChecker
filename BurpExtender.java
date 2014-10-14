@@ -3,6 +3,7 @@ package burp;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
+
 import javax.swing.JMenuItem;
 
 public class BurpExtender implements IBurpExtender, IContextMenuFactory
@@ -30,22 +31,32 @@ public class BurpExtender implements IBurpExtender, IContextMenuFactory
 				
 				String[] lineAry = line.split("\n");
 				
-				for(int i = 0; i < lineAry.length; i++)
+				try
 				{
-					String[] strAry = lineAry[i].split("\t");
-					IntruderTableData interdertabledata = new IntruderTableData();
-					interdertabledata.setRequest(strAry[0]);
-					interdertabledata.setPosition(strAry[1]);
-					interdertabledata.setPayload(strAry[2]);
-					interdertabledata.setStatus(strAry[3]);
-					interdertabledata.setError(strAry[4]);
-					interdertabledata.setTimeout(strAry[5]);
-					interdertabledata.setLength(strAry[6]);
+					for(int i = 0; i < lineAry.length; i++)
+					{
+						String[] strAry = lineAry[i].split("\t");
+						IntruderTableData interdertabledata = new IntruderTableData();
+						interdertabledata.setRequest(strAry[0]);
+						interdertabledata.setPosition(strAry[1]);
+						interdertabledata.setPayload(strAry[2]);
+						interdertabledata.setStatus(strAry[3]);
+						interdertabledata.setError(strAry[4]);
+						interdertabledata.setTimeout(strAry[5]);
+						interdertabledata.setLength(strAry[6]);
+						
+						arraylist.add(interdertabledata);
+					}
+					SqlResultCheck sqlresultcheck = new SqlResultCheck();
+					clipboardcontrol.setClipboard(sqlresultcheck.resultCheck(arraylist));
 					
-					arraylist.add(interdertabledata);
 				}
-				SqlResultCheck sqlresultcheck = new SqlResultCheck();
-				clipboardcontrol.setClipboard(sqlresultcheck.resultCheck(arraylist));
+				catch(ArrayIndexOutOfBoundsException arryError)
+				{
+					ArrayList<String> errArry = new ArrayList<>();
+					errArry.add("Copy Error");
+					clipboardcontrol.setClipboard(errArry);
+				}
 			}
 		});
     	
