@@ -9,6 +9,10 @@ public class SqlResultCheck {
 		try
 		{
 			int j = 0;
+			int lengthI = 0;
+			int lengthJ = 0;
+			int sabun = 0;
+			
 			ArrayList<String> result = new ArrayList<String>();
 			
 			for(int i=0; i<arraylist.size(); i++)
@@ -16,17 +20,19 @@ public class SqlResultCheck {
 				if(arraylist.get(i).getPayload().equals("'"))
 				{
 					j = i;
+					lengthJ = Integer.parseInt(arraylist.get(j).getLength());
 				}
 				
 				if(arraylist.get(i).getPayload().equals("''"))
 				{
 					if(!arraylist.get(i).getStatus().equals(arraylist.get(j).getStatus()))
 					{
-						result.add("NG");
+						result.add("NG, Status UnMatch");
 					}
-					else if(Integer.parseInt(arraylist.get(i).getLength()) - Integer.parseInt(arraylist.get(j).getLength()) > 10)
+					else if(lengthJ - lengthI > 10)
 					{
-						result.add("NG");
+						sabun = lengthJ - lengthI;
+						result.add("NG, sabun:" + sabun);
 					}
 					else
 					{
@@ -37,17 +43,19 @@ public class SqlResultCheck {
 				if(arraylist.get(i).getPayload().equals("'and'a'='a"))
 				{
 					j = i;
+					lengthJ = Integer.parseInt(arraylist.get(j).getLength());
 				}
 				
 				if(arraylist.get(i).getPayload().equals("'and'a'='b"))
 				{
 					if(!arraylist.get(i).getStatus().equals(arraylist.get(j).getStatus()))
 					{
-						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG");
+						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG, Status UnMatch(String)");
 					}
 					else if(!arraylist.get(i).getLength().equals(arraylist.get(j).getLength()))
 					{
-						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG");
+						sabun = lengthJ - lengthI;
+						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG ,sabun(String):" + sabun);
 					}
 					else
 					{
@@ -58,17 +66,19 @@ public class SqlResultCheck {
 				if(arraylist.get(i).getPayload().equals(" and 1=1"))
 				{
 					j = i;
+					lengthJ = Integer.parseInt(arraylist.get(j).getLength());
 				}
 				
 				if(arraylist.get(i).getPayload().equals(" and 1=0"))
 				{
 					if(!arraylist.get(i).getStatus().equals(arraylist.get(j).getStatus()))
 					{
-						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG");
+						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG, Status UnMatch(int)");
 					}
 					else if(!arraylist.get(i).getLength().equals(arraylist.get(j).getLength()))
 					{
-						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG");
+						sabun = lengthJ - lengthI;
+						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG, sabun(Int):" + sabun);
 					}
 					else
 					{
