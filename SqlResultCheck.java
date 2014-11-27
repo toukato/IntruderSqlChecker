@@ -25,13 +25,15 @@ public class SqlResultCheck {
 				
 				if(arraylist.get(i).getPayload().equals("''"))
 				{
+					lengthI = Integer.parseInt(arraylist.get(i).getLength());
+					
 					if(!arraylist.get(i).getStatus().equals(arraylist.get(j).getStatus()))
 					{
 						result.add("NG, Status UnMatch");
 					}
-					else if(lengthJ - lengthI > 10)
+					else if(lengthI - lengthJ > 10)
 					{
-						sabun = lengthJ - lengthI;
+						sabun = lengthI - lengthJ;
 						result.add("NG, sabun:" + sabun);
 					}
 					else
@@ -48,6 +50,8 @@ public class SqlResultCheck {
 				
 				if(arraylist.get(i).getPayload().equals("'and'a'='b"))
 				{
+					lengthI = Integer.parseInt(arraylist.get(i).getLength());
+					
 					if(!arraylist.get(i).getStatus().equals(arraylist.get(j).getStatus()))
 					{
 						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG, Status UnMatch(String)");
@@ -71,6 +75,8 @@ public class SqlResultCheck {
 				
 				if(arraylist.get(i).getPayload().equals(" and 1=0"))
 				{
+					lengthI = Integer.parseInt(arraylist.get(i).getLength());
+					
 					if(!arraylist.get(i).getStatus().equals(arraylist.get(j).getStatus()))
 					{
 						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG, Status UnMatch(int)");
