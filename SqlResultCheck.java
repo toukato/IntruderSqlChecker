@@ -12,6 +12,10 @@ public class SqlResultCheck {
 			int lengthI = 0;
 			int lengthJ = 0;
 			int sabun = 0;
+			String resultSingle = "-";
+			String resultString = "-";
+			String resultInt = "-";
+			String resultAll = "";
 			
 			ArrayList<String> result = new ArrayList<String>();
 			
@@ -29,16 +33,16 @@ public class SqlResultCheck {
 					
 					if(!arraylist.get(i).getStatus().equals(arraylist.get(j).getStatus()))
 					{
-						result.add("NG, Status UnMatch");
+						resultSingle = "NG";
 					}
 					else if(lengthI - lengthJ > 10)
 					{
 						sabun = lengthI - lengthJ;
-						result.add("NG, sabun:" + sabun);
+						resultSingle = "NG(" + sabun + ")";
 					}
 					else
 					{
-						result.add("OK");
+						resultSingle = "OK";
 					}
 				}
 				
@@ -54,16 +58,16 @@ public class SqlResultCheck {
 					
 					if(!arraylist.get(i).getStatus().equals(arraylist.get(j).getStatus()))
 					{
-						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG, Status UnMatch(String)");
+						resultString = "NG";
 					}
 					else if(!arraylist.get(i).getLength().equals(arraylist.get(j).getLength()))
 					{
 						sabun = lengthJ - lengthI;
-						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG ,sabun(String):" + sabun);
+						resultString = "NG(" + sabun + ")";
 					}
 					else
 					{
-//						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "OK");
+						resultString = "OK";
 					}
 				}
 
@@ -79,18 +83,20 @@ public class SqlResultCheck {
 					
 					if(!arraylist.get(i).getStatus().equals(arraylist.get(j).getStatus()))
 					{
-						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG, Status UnMatch(int)");
+						resultInt = "NG";
 					}
 					else if(!arraylist.get(i).getLength().equals(arraylist.get(j).getLength()))
 					{
 						sabun = lengthJ - lengthI;
-						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "NG, sabun(Int):" + sabun);
+						resultInt = "NG(" + sabun + ")";
 					}
 					else
 					{
-//						result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, "OK");
+						resultInt = "OK";
 					}
-				}			
+				}
+				resultAll = resultSingle + ", " + resultString + ", " + resultInt;
+				result.add(resultAll);				
 			}
 			return result;
 		}
