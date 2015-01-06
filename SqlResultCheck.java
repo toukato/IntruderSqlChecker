@@ -44,6 +44,8 @@ public class SqlResultCheck {
 					{
 						resultSingle = "OK";
 					}
+					resultAll = resultSingle + ", " + resultString + ", " + resultInt;
+					result.add(resultAll);	
 				}
 				
 				if(arraylist.get(i).getPayload().equals("'and'a'='a"))
@@ -69,6 +71,8 @@ public class SqlResultCheck {
 					{
 						resultString = "OK";
 					}
+					resultAll = resultSingle + ", " + resultString + ", " + resultInt;
+					result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, resultAll);
 				}
 
 				if(arraylist.get(i).getPayload().equals(" and 1=1"))
@@ -94,9 +98,9 @@ public class SqlResultCheck {
 					{
 						resultInt = "OK";
 					}
+					resultAll = resultSingle + ", " + resultString + ", " + resultInt;
+					result.set(Integer.parseInt(arraylist.get(i).getPosition()) - 1, resultAll);
 				}
-				resultAll = resultSingle + ", " + resultString + ", " + resultInt;
-				result.add(resultAll);				
 			}
 			return result;
 		}
