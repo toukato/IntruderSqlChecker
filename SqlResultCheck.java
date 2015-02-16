@@ -35,7 +35,7 @@ public class SqlResultCheck {
 					{
 						resultSingle = "NG";
 					}
-					else if(lengthI - lengthJ >= 0 && lengthI - lengthJ <= 10)
+					else if(lengthI - lengthJ < 0 && lengthI - lengthJ > 10)
 					{
 						sabun = lengthI - lengthJ;
 						resultSingle = "NG(" + sabun + ")";
